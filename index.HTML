@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نتائج الفصل الثاني</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Amiri', serif;
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+            text-align: center;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(1); opacity: 0.3; }
+            100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .header {
+            font-size: 3rem;
+            color: #f1c40f;
+            text-shadow: 0 0 15px rgba(241, 196, 15, 0.7);
+            margin-top: 20px;
+            opacity: 0;
+            animation: glow 3s forwards;
+        }
+        .image-container {
+            margin: 40px 0;
+            opacity: 0;
+            animation: zoomIn 2s forwards 5s;
+        }
+        .image-container img {
+            max-width: 350px;
+            border-radius: 20px;
+            border: 5px solid #f1c40f;
+            box-shadow: 0 0 20px rgba(241, 196, 15, 0.5);
+            transition: transform 0.5s, box-shadow 0.5s;
+        }
+        .image-container img:hover {
+            transform: scale(1.1) rotate(2deg);
+            box-shadow: 0 0 30px rgba(241, 196, 15, 0.8);
+        }
+        .intro-paragraph {
+            font-size: 1.8rem;
+            color: #f1c40f;
+            text-shadow: 0 0 10px rgba(241, 196, 15, 0.5);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 40px 0;
+            opacity: 0;
+            animation: slideIn 2s forwards 8s;
+            transition: transform 0.5s;
+        }
+        .intro-paragraph:hover {
+            transform: translateY(-5px);
+        }
+        .section-title {
+            font-size: 3.2rem;
+            color: #e74c3c;
+            text-shadow: 0 0 15px rgba(231, 76, 60, 0.7);
+            margin: 40px 0;
+            opacity: 0;
+            animation: glow 3s forwards 12s;
+        }
+        .class-title {
+            font-size: 2.5rem;
+            color: #3498db;
+            text-shadow: 0 0 10px rgba(52, 152, 219, 0.7);
+            margin: 20px 0;
+            opacity: 0;
+            transition: transform 0.5s;
+        }
+        .class-title:hover {
+            transform: scale(1.05);
+        }
+        .result-item {
+            font-size: 2rem;
+            color: #fff;
+            background: rgba(52, 152, 219, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            opacity: 0;
+            transition: background 0.5s;
+        }
+        .result-item:hover {
+            background: rgba(52, 152, 219, 0.4);
+        }
+        .top-ten-title {
+            font-size: 3.2rem;
+            color: #e74c3c;
+            text-shadow: 0 0 15px rgba(231, 76, 60, 0.7);
+            margin: 40px 0;
+            opacity: 0;
+        }
+        .quotes {
+            margin-top: 40px;
+            opacity: 0;
+        }
+        .quote {
+            font-size: 1.8rem;
+            color: #f1c40f;
+            text-shadow: 0 0 10px rgba(241, 196, 15, 0.5);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            opacity: 0;
+            transition: transform 0.5s;
+        }
+        .quote:hover {
+            transform: translateY(-5px);
+        }
+        .audio-control {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        @keyframes glow {
+            0% { opacity: 0; text-shadow: 0 0 5px rgba(241, 196, 15, 0.3); }
+            50% { opacity: 1; text-shadow: 0 0 20px rgba(241, 196, 15, 0.8); }
+            100% { opacity: 1; text-shadow: 0 0 15px rgba(241, 196, 15, 0.7); }
+        }
+        @keyframes zoomIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        @keyframes slideIn {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    <div class="audio-control" onclick="playAudio()">تشغيل الصوت</div>
+    <div class="container">
+        <div class="header">
+            مديرية التربية لولاية أولاد جلال<br>مدرسة العقيد لطفي - أولاد جلال -
+        </div>
+
+        <div class="image-container">
+            <img src="adel.jpg" alt="صورة الاحتفال">
+        </div>
+
+        <div class="intro-paragraph">
+            في ميدان العلم، لا يُقاس النجاح فقط بالأرقام بل بالجهد والمثابرة والرغبة الصادقة في التقدّم.<br>
+            في هذا الفصل الثاني، لمع نجمُ من اجتهد وأثمرت الساعات الطويلة من المذاكرة والتعب. فهنيئًا لكل من ورد اسمه اليوم فأنتم فخر مدرستكم وبكم نرتقي.<br>
+            أما من لم يرد اسمه اليوم فلا تيأسوا، فالفصل القادم فرصة جديدة وصفحة بيضاء تنتظر أن تُكتب بحروف النجاح.<br>
+            تذكّروا دائمًا: "من جدّ وجد ومن زرع حصد ومن سار على الدرب وصل."
+        </div>
+
+        <div class="section-title">
+            النتائج المحصل عليها خلال الفصل الثاني
+        </div>
+
+        <div id="results"></div>
+
+        <div id="top-ten-title" class="top-ten-title">
+             أعلى 10 معدلات في المؤسسة في الفصل الثاني
+        </div>
+
+        <div id="top-ten-results"></div>
+
+        <div id="quotes" class="quotes">
+            <div class="quote">"لكل مجتهد نصيب، واليوم حان وقت حصادكم الجميل."</div>
+            <div class="quote">"النجاح ليس محطة وصول، بل هو مسيرة مستمرة... فاستمرّوا في التقدم!"</div>
+            <div class="quote">"من لم يتفوق اليوم، قد يتألق غدًا... المثابرة هي سر التفوق الحقيقي."</div>
+            <div class="quote">"الفصل الثاني كان تحديًا، وأنتم أثبتم أنكم أهل للثقة والمسؤولية."</div>
+            <div class="quote">"كل نجاح يبدأ بخطوة... فلا تتوقفوا عن السير نحو أحلامكم."</div>
+            <div class="quote">"النتائج ليست نهاية، بل بداية لمشوار أكبر... القادم أجمل."</div>
+        </div>
+    </div>
+
+    <audio id="background-audio" loop>
+        <source src="1.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        // Particle effect
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.width = `${Math.random() * 5 + 2}px`;
+            particle.style.height = particle.style.width;
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.animationDelay = `${Math.random() * 10}s`;
+            particlesContainer.appendChild(particle);
+        }
+
+        const resultsData = {
+            "أولى ابتدائي 1": [
+                { name: "لعواد فاطمة الزهراء", score: 9.47 },
+                { name: "غيبوب فرح", score: 9.35 },
+                { name: "لعواد آسيا لجين", score: 9.33 }
+            ],
+            "أولى ابتدائي 2": [
+                { name: "توبي هاجر", score: 9.69 },
+                { name: "لعسل شهد", score: 9.69 },
+                { name: "مرغاد براءة منية الله", score: 9.69 }
+            ],
+            "ثانية ابتدائي 1": [
+                { name: "شنيط محمد سراج", score: 9.50 },
+                { name: "بركة طلال ريان", score: 9.33 },
+                { name: "قوادرية رؤيا اليقين", score: 9.28 }
+            ],
+            "ثانية ابتدائي 2": [
+                { name: "شماح زين الدين", score: 9.75 },
+                { name: "عبد العزيز لجين", score: 9.67 },
+                { name: "العمري دعاء نور اليقين", score: 9.65 }
+            ],
+            "ثالثة ابتدائي 1": [
+                { name: "سكر يارا", score: 9.59 },
+                { name: "بريقلي عبد الرحمان", score: 9.54 },
+                { name: "كشيدة عبد العزيز", score: 9.47 }
+            ],
+            "ثالثة ابتدائي 2": [
+                { name: "خضراوي شعيب ياسين", score: 9.65 },
+                { name: "ضحوي أسيل مسعودة", score: 9.59 },
+                { name: "شامخ إدريس", score: 9.52 }
+            ],
+            "ثالثة ابتدائي 3": [
+                { name: "دهان محمد ريان", score: 9.64 },
+                { name: "طواقة أسيل", score: 9.64 },
+                { name: "جنيدي غفران", score: 9.54 }
+            ],
+            "رابعة ابتدائي 1": [
+                { name: "دهان عبد الودود", score: 9.45 },
+                { name: "زنودة سارة", score: 9.30 },
+                { name: "عزري يعقوب", score: 9.17 }
+            ],
+            "رابعة ابتدائي 2": [
+                { name: "لقويرح أحمد صهيب", score: 9.76 },
+                { name: "ضحوي ياسمين", score: 9.45 },
+                { name: "غيبوب أيوب", score: 9.43 }
+            ],
+            "خامسة ابتدائي 1": [
+                { name: "طرقي ياسمين", score: 9.67 },
+                { name: "عمير المعتصم بالله", score: 9.64 },
+                { name: "شرون ندى", score: 9.61 }
+            ],
+            "خامسة ابتدائي 2": [
+                { name: "بولنوار بهاء الدين", score: 9.62 },
+                { name: "زنودة لينا", score: 9.59 },
+                { name: "خضراوي تسنيم", score: 9.55 }
+            ]
+        };
+
+        const topTen = [
+            { name: "لقويرح أحمد صهيب", score: 9.76 },
+            { name: "شماح زين الدين", score: 9.75 },
+            { name: "توبي هاجر", score: 9.69 },
+            { name: "لعسل شهد", score: 9.69 },
+            { name: "مرغاد براءة منية الله", score: 9.69 },
+            { name: "طرقي ياسمين", score: 9.67 },
+            { name: "عبد العزيز لجين", score: 9.67 },
+            { name: "خضراوي شعيب ياسين", score: 9.65 },
+            { name: "العمري دعاء نور اليقين", score: 9.65 },
+            { name: "دهان محمد ريان", score: 9.64 }
+        ];
+
+        const resultsContainer = document.getElementById('results');
+        const topTenContainer = document.getElementById('top-ten-results');
+        const topTenTitle = document.getElementById('top-ten-title');
+        const quotesContainer = document.getElementById('quotes');
+        const quoteElements = document.querySelectorAll('.quote');
+        const audio = document.getElementById('background-audio');
+
+        function scrollToElement(element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function playAudio() {
+            audio.play().catch(error => {
+                console.log("Audio playback failed:", error);
+            });
+        }
+
+        async function displayResults() {
+            // تأخير إضافي للسماح للجزء الأول بالظهور لمدة كافية (25 ثانية)
+            await new Promise(resolve => setTimeout(resolve, 25000));
+
+            // عرض نتائج الفصول
+            for (const [className, students] of Object.entries(resultsData)) {
+                const classDiv = document.createElement('div');
+                classDiv.className = 'class-title';
+                classDiv.textContent = className;
+                classDiv.style.animation = `glow 2s forwards`;
+                resultsContainer.appendChild(classDiv);
+                scrollToElement(classDiv);
+                await new Promise(resolve => setTimeout(resolve, 2000));
+
+                for (const student of students) {
+                    const studentDiv = document.createElement('div');
+                    studentDiv.className = 'result-item';
+                    studentDiv.textContent = `- ${student.name} ${student.score}`;
+                    studentDiv.style.animation = `slideIn 2s forwards`;
+                    resultsContainer.appendChild(studentDiv);
+                    scrollToElement(studentDiv);
+                    await new Promise(resolve => setTimeout(resolve, 7000));
+                    studentDiv.style.animation = `slideIn 2s forwards reverse`;
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                }
+
+                await new Promise(resolve => setTimeout(resolve, 5000));
+            }
+
+            // عرض أعلى 10 معدلات
+            topTenTitle.style.animation = `glow 2s forwards`;
+            scrollToElement(topTenTitle);
+            await new Promise(resolve => setTimeout(resolve, 2000));
+
+            for (const student of topTen) {
+                const studentDiv = document.createElement('div');
+                studentDiv.className = 'result-item';
+                studentDiv.textContent = `- ${student.name} ${student.score}`;
+                studentDiv.style.animation = `slideIn 2s forwards`;
+                topTenContainer.appendChild(studentDiv);
+                scrollToElement(studentDiv);
+                await new Promise(resolve => setTimeout(resolve, 7000));
+                studentDiv.style.animation = `slideIn 2s forwards reverse`;
+                await new Promise(resolve => setTimeout(resolve, 2000));
+            }
+
+            await new Promise(resolve => setTimeout(resolve, 5000));
+
+            // عرض الاقتباسات
+            quotesContainer.style.animation = `glow 2s forwards`;
+            scrollToElement(quotesContainer);
+            quoteElements.forEach(async (quote, index) => {
+                quote.style.animation = `slideIn 2s forwards ${index * 1000}ms`;
+                scrollToElement(quote);
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            });
+        }
+
+        window.onload = () => {
+            displayResults();
+        };
+    </script>
+</body>
+</html>
